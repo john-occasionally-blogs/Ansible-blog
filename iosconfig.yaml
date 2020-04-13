@@ -1,0 +1,14 @@
+#configures IOS devices based on commands in a text file change.txt
+ 
+ - hosts: routers
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: push config file
+       ios_config:
+         src: "/etc/ansible/network-automation/change.txt"
+           
+     - name: save running config when modified
+       ios_config:
+         save_when: modified
