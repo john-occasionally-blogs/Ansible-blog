@@ -1,0 +1,12 @@
+#remotes into IOS devices and configures banner MOTD
+ 
+ - hosts: all-devices
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: Configure banner from file
+       ios_banner:
+         banner: motd
+         text: "{{ lookup('file', '/root/test1/raw_banner.txt') }}"
+         state: present
