@@ -1,0 +1,10 @@
+#ping 2.2.2.2 from all devices
+ 
+ - hosts: all-devices
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: Test reachability to 2.2.2.2 using default vrf
+         ios_ping:
+         dest: 2.2.2.2
