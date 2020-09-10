@@ -1,0 +1,10 @@
+#configure hostname from jinja2
+ 
+ - hosts: routers
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+    - name: configure hostname
+      ios_config:
+        lines: hostname {{ inventory_hostname }}
