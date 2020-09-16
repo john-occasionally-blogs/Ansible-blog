@@ -1,0 +1,16 @@
+#import gather facts playbook, then display hostname and IOS version from jinja2
+- import_playbook: iosconfig2.yaml
+
+- hosts: routers
+  gather_facts: false
+  connection: network_cli
+  strategy: free
+
+  tasks:
+    - name: Gather facts (ops)
+      ios_facts:
+      when: ansible_network_os == 'ios'
+
+    - name: Display some facts
+      debug:
+        msg: "The hostname is {{ ansible_net_hostname }} and the OS is {{ ansible_net_version }}"
