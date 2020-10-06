@@ -1,0 +1,12 @@
+#gather facts and then display those facts
+
+ - hosts: routers
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: Gather all legacy facts
+       ios_facts:
+         gather_subset: all
+
+     - debug: var=ansible_facts
