@@ -1,0 +1,12 @@
+#gather facts and display IP addresses
+
+ - hosts: routers
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: Gather facts and display IP addresses
+       ios_facts:
+         gather_subset: all
+
+     - debug: var=ansible_net_all_ipv4_addresses
