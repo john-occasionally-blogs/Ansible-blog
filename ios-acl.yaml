@@ -8,11 +8,18 @@
      - name: load new acl into device
        ios_config:
          lines:
-           - 10 permit host 192.0.2.1 log
+           - 10 permit host 192.168.0.2 log
            - 20 permit host 192.0.2.2 log
            - 30 permit host 192.0.2.3 log
            - 40 permit host 192.0.2.4 log
            - 50 permit host 192.0.2.5 log
          parents: ip access-list standard 99
          before: no ip access-list standard 99
+         match: exact
+
+     - name: configure VTY lines
+       ios_config:
+         lines:
+           - access-class 99 in
+         parents: line vty 0 15
          match: exact
