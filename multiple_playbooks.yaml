@@ -1,0 +1,4 @@
+---
+- import_playbook: gather_display.yaml
+- import_playbook: ping.yaml
+
