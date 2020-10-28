@@ -1,0 +1,30 @@
+#remotes into IOS devices to configure ACL
+
+ - hosts: routers
+   gather_facts: false
+   connection: network_cli
+
+   tasks:
+     - name: Remove ACL from VTY
+       ios_config:
+         lines:
+           - no access-class 99 in
+         parents: line vty 0 15
+         match: exact
+
+     - name: load new acl into device
+       ios_config:
+         lines:
+           - 10 permit host 192.168.0.2 log
+           - 20 deny any
+         parents: ip access-list standard 99
+         before: no ip access-list standard 99
+         match: exact
+
+     - name: Replace ACL on VTY
+       ios_config:
+         lines:
+           - access-class 99 in
+           - transport input ssh
+         parents: line vty 0 15
+         match: exact
